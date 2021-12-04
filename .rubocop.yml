@@ -9,3 +9,6 @@ Style/FrozenStringLiteralComment:
 
 Layout/LineLength:
   Max: 90
+
+Style/NumberedParametersLimit:
+  Max: 3  

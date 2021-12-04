@@ -1,6 +1,6 @@
 def output_with_color(color, *args)
   args.each do |arg|
-    puts '  ' * (caller.length - 4) + Rainbow(arg).send(color)
+    puts(('  ' * (caller.length - 4)) + Rainbow(arg).send(color))
   end
 end
 
