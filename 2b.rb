@@ -7,4 +7,4 @@ File.read('2.input').lines.map(&:split).each do |direction, amount|
   when 'up'      then aim -= amount
   end
 end
-p pos.real * pos.imag
+p pos.real * pos.imag # 2138382217
