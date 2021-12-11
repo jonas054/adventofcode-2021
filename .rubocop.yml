@@ -12,3 +12,18 @@ Layout/LineLength:
 
 Style/NumberedParametersLimit:
   Max: 3  
+
+Style/ParallelAssignment:
+  Enabled: false
+
+Style/PerlBackrefs:
+  Enabled: false
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Lint/AmbiguousOperatorPrecedence:
+    Enabled: false
