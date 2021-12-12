@@ -11,41 +11,44 @@ example = <<~TEXT
   gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
 TEXT
 
-# Returns all the inputs that have the given number of segments.
-def inputs_with_segments(input, segments)
-  input.select { _1.length == segments }.map { _1.chars.sort }
-end
-
-# Selects the choices whose segments overlap all the segments of a known number.
-def overlapping(choices, known)
-  choices.select { _1 & known == known }
-end
-
 def count(data)
-  inputs, outputs = data.split(' | ').map(&:split)
-  one = inputs_with_segments(inputs, 2).flatten
-  four = inputs_with_segments(inputs, 4).flatten
-  six = inputs_with_segments(inputs, 6) -
-        overlapping(inputs_with_segments(inputs, 6), one)
-  nine = overlapping(inputs_with_segments(inputs, 6), four)
-  three = overlapping(inputs_with_segments(inputs, 5), one)
-  two_or_five = inputs_with_segments(inputs, 5) - three
+  @inputs, outputs = data.split(' | ').map(&:split)
+  table = figure_out
+  outputs.map { table[[_1.chars.sort]].to_s }.join.to_i
+end
+
+def figure_out
+  one = inputs_with_segments(2).flatten
+  three = overlapping(5, one)
+  two_or_five = inputs_with_segments(5) - three
+  four = inputs_with_segments(4).flatten
   two = two_or_five.reject { (_1 - four).length == 2 }
-  table = {
-    inputs_with_segments(inputs, 6) - six - nine => 0,
+  six = inputs_with_segments(6) - overlapping(6, one)
+  nine = overlapping(6, four)
+  {
+    inputs_with_segments(6) - six - nine => 0,
     [one] => 1,
     two => 2,
     three => 3,
     [four] => 4,
     two_or_five - two => 5,
     six => 6,
-    inputs_with_segments(inputs, 3) => 7,
-    inputs_with_segments(inputs, 7) => 8,
+    inputs_with_segments(3) => 7,
+    inputs_with_segments(7) => 8,
     nine => 9
   }
-  outputs.map { table[[_1.chars.sort]].to_s }.join.to_i
+end
+
+# Selects the choices whose segments overlap all the segments of a known number.
+def overlapping(nr_of_segments, known)
+  inputs_with_segments(nr_of_segments).select { _1 & known == known }
+end
+
+# Returns all the inputs that have the given number of segments.
+def inputs_with_segments(nr_of_segments)
+  @inputs.select { _1.length == nr_of_segments }.map { _1.chars.sort }
 end
 
 raise unless example.lines.map { count(_1) }.sum == 61_229
 
-p File.read('8.inputs').lines.map { count(_1) }.sum # 1070188
+p File.read('8.input').lines.map { count(_1) }.sum # 1070188
