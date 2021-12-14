@@ -30,6 +30,7 @@ def main(input, single_fold)
     break if single_fold && line =~ /fold/
   end
   output
+  count
 end
 
 def process(line)
@@ -53,7 +54,7 @@ def store_point(x, y)
 end
 
 def fold(to_x, to_y)
-  (0..(to_y - 1)).each do |dest_y|
+  (0..to_y).each do |dest_y|
     (0..to_x).each do |dest_x|
       set(dest_x, dest_y, yield(dest_x, dest_y))
     end
@@ -87,8 +88,6 @@ def count
 end
 
 if $PROGRAM_NAME == __FILE__
-  main(example, true)
-  p count # 17
-  main(File.read('13.input'), true)
-  p count # 671
+  p main(File.read('13.input'), true) # 671
+  p main(example, true) # 17
 end
