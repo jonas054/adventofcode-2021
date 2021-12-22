@@ -16,7 +16,7 @@ def total_risk(matrix)
   low_points.map(&:succ).sum
 end
 
-def adjacents(matrix, x, y)
+def adjacents(matrix, x, y) # rubocop:disable Metrics/AbcSize
   row = matrix[y]
   adjacents = []
   adjacents << row[x - 1] if x > 0

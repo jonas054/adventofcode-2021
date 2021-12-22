@@ -21,9 +21,13 @@ def shoot(speed, target_x_range, target_y_range)
     max_y = [pos.y, max_y].max
     speed -= Vector(speed.x / speed.x.abs, 0) unless speed.x == 0
     speed -= Vector(0, 1)
-    break if pos.x > target_x_range.max || pos.y < target_y_range.min
+    break if passed?(pos, target_x_range, target_y_range)
     return max_y if target_x_range.cover?(pos.x) && target_y_range.cover?(pos.y)
   end
+end
+
+def passed?(pos, target_x_range, target_y_range)
+  pos.x > target_x_range.max || pos.y < target_y_range.min
 end
 
 if $PROGRAM_NAME == __FILE__

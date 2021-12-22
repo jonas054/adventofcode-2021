@@ -20,12 +20,16 @@ def main(input)
   path_forward_of_lowest_risk(0, 0, paths)
   total_risk = { [max_x, max_y] => 0 }
   paths.each_key { |pos| total_risk[pos] = total_level(paths[pos]) }
-  print 'correcting'
-  print '.' while correct(total_risk)
-  puts
+  do_all_corrections(total_risk)
   path = find_final_path(0, 0, total_risk)
   # output(path)
   total_level(path)
+end
+
+def do_all_corrections(total_risk)
+  print 'correcting'
+  print '.' while correct(total_risk)
+  puts
 end
 
 def correct(total_risk)

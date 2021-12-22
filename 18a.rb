@@ -35,7 +35,7 @@ def explode_leftmost(parts)
   parts.each_with_index do |elem, ix|
     level += 1 if elem == '['
     level -= 1 if elem == ']'
-    next unless level > 4 && elem == '[' && parts[ix + 2] == ',' && parts[ix + 4] == ']'
+    next unless level > 4 && pair_of_digits?(parts, ix)
 
     explode(parts, ix)
     return true
@@ -43,20 +43,20 @@ def explode_leftmost(parts)
   false
 end
 
+def pair_of_digits?(parts, ix)
+  parts[ix] == '[' && parts[ix + 2] == ',' && parts[ix + 4] == ']'
+end
+
 def explode(parts, ix)
-  ix.downto(0) do |i|
-    next unless parts[i].is_a?(Integer)
-
-    parts[i] += parts[ix + 1]
-    break
-  end
-  (ix + 4).upto(parts.length) do |i|
-    next unless parts[i].is_a?(Integer)
-
-    parts[i] += parts[ix + 3]
-    break
-  end
+  explode_one_side(parts, ix + 1, ix.downto(0))
+  explode_one_side(parts, ix + 3, (ix + 4)..parts.length)
   parts[ix, 5] = 0
+end
+
+def explode_one_side(parts, value_ix, search_range)
+  destination_ix = search_range.find { parts[_1].is_a?(Integer) } or return
+
+  parts[destination_ix] += parts[value_ix]
 end
 
 def split_leftmost(parts)

@@ -17,7 +17,7 @@ def count(data)
   outputs.map { table[[_1.chars.sort]].to_s }.join.to_i
 end
 
-def figure_out
+def figure_out # rubocop:disable Metrics/AbcSize
   one = inputs_with_segments(2).flatten
   three = overlapping(5, one)
   two_or_five = inputs_with_segments(5) - three
