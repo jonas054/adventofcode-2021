@@ -4,11 +4,20 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.0
 
+Layout/LineLength:
+  Max: 90
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/LineLength:
-  Max: 90
+Style/GlobalVars:
+  Enabled: false
 
 Style/NumberedParametersLimit:
   Max: 3  
@@ -19,11 +28,11 @@ Style/ParallelAssignment:
 Style/PerlBackrefs:
   Enabled: false
 
-Naming/MethodParameterName:
-  Enabled: false
-
 Style/NumericPredicate:
   Enabled: false
 
 Lint/AmbiguousOperatorPrecedence:
     Enabled: false
+
+# Metrics:
+#   Enabled: false
